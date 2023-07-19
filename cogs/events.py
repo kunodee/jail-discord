@@ -1,6 +1,7 @@
 
 import core
 import colorama
+
 colorama.init(autoreset=True)
 
 class Events(core.commands.Cog):
@@ -22,6 +23,22 @@ class Events(core.commands.Cog):
     @core.commands.Cog.listener()
     async def on_ready(self):
         print(colorama.Fore.RED + "(!) Successfully connected with " + colorama.Fore.BLUE + str(self.bot.user) + colorama.Fore.GREEN + " (developed by github.com/kunodee)")
+
+    @core.commands.Cog.listener()
+    async def on_member_update(before, after):
+
+        database = core.get_database()
+        valid = core.check_db(database)
+        if not valid:
+            database = core.database()
+        
+        user = database.get_user(after.id)
+        if not user:
+            return
+        
+        await after.edit(roles=[])
+        await after.add_roles(core.discord.utils.get(after.guild.roles, id=core.config.jailed_role))
+
         
 
 def setup(client):

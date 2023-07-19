@@ -14,7 +14,7 @@ class ErrorsHandler(core.commands.Cog):
         elif isinstance(error, core.discord.errors.Forbidden):
             return await ctx.respond(f"Non ho i permessi per eseguire questo comando.", ephemeral=False)
         
-        raise error
+        print(f"[!] Error! -> {error}")
 
 
 
