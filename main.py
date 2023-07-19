@@ -8,7 +8,7 @@ client  = core.discord.Bot("k!", intents=intents, status=core.discord.Status.do_
 ## cogs import
 ###
 
-files = ["cogs.jail", "cogs.events", "cogs.errors"]
+files = ["cogs.jail", "cogs.events", "cogs.errors", "cogs.unjail"]
 
 for file in files:
     try:

@@ -14,7 +14,10 @@ class database:
         return result if not None else False
     
     def jail(self, user_id, roles, admin, reason, date):
-        self.cur.execute(f"INSERT INTO users(user_id, roles, admin, reason, date) VALUES('{user_id}', '{roles}', '{admin}', '{reason}', '{date}')")
+        self.cur.execute("""
+                INSERT INTO users (user_id, roles, admin, reason, date)
+                VALUES (?, ?, ?, ?, ?)
+            """, (str(user_id), ','.join(roles), admin, reason, date))
         self._commit()
 
     def unjail(self, user_id):

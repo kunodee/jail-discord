@@ -1,7 +1,6 @@
 
 import core
 import colorama
-
 colorama.init(autoreset=True)
 
 class Events(core.commands.Cog):
@@ -25,7 +24,12 @@ class Events(core.commands.Cog):
         print(colorama.Fore.RED + "(!) Successfully connected with " + colorama.Fore.BLUE + str(self.bot.user) + colorama.Fore.GREEN + " (developed by github.com/kunodee)")
 
     @core.commands.Cog.listener()
-    async def on_member_update(before, after):
+    async def on_member_update(self, before, after):
+
+        if before.roles == after.roles:
+            return
+        
+        await core.asyncio.sleep(1) # wait for be sure that he's not getting unjailed
 
         database = core.get_database()
         valid = core.check_db(database)
@@ -36,8 +40,7 @@ class Events(core.commands.Cog):
         if not user:
             return
         
-        await after.edit(roles=[])
-        await after.add_roles(core.discord.utils.get(after.guild.roles, id=core.config.jailed_role))
+        await after.edit(roles=[core.discord.utils.get(after.guild.roles, id=core.config.jailed_role)])
 
         
 

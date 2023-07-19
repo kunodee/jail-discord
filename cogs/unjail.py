@@ -24,13 +24,6 @@ class Free(core.commands.Cog):
         roles = [core.discord.utils.get(ctx.guild.roles, id=int(roleid)) for roleid in roles]
         logChannel = self.bot.get_channel(core.config.log_prigione)
 
-        await user.edit(roles=[])
-        for role in roles:
-            if(role.id in core.config.staffers):
-                continue
-            try: await user.add_roles(role)
-            except: pass
-
         embed = core.discord.Embed(
             description=f"🆕 **New member unjailed**ㆍ #JAIL\n\n💣 _Member_ ㆍ {user.mention} `{user.id}`\n❄️ _Admin_ ㆍ {ctx.user.mention} `{ctx.user.id}`",
             colour=0x00b0f4,
@@ -44,6 +37,13 @@ class Free(core.commands.Cog):
 
         database.unjail(user.id)
         database._close()
+
+        await user.edit(roles=[])
+        for role in roles:
+            if(role.id in core.config.staffers or role.id == core.config.jailed_role):
+                continue
+            try: await user.add_roles(role)
+            except: pass
 
         await ctx.followup.send(f"{user.mention} successfully unjailed!\n{c.jump_url}", ephemeral=True)
 
