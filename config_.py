@@ -1,0 +1,9 @@
+
+class config:
+
+    BOT_TOKEN = "" # // YOUR DISCOR BOT TOKEN
+    can_ban   = [] # // LIST OF ROLES WHO CAN USE THE JAIL COMMANDS
+    staffers  = [] # // ALL THE ROLES ID OF THE STAFFER SO WHEN THE USER GET UNJAILED HE WON'T GET BACK THE STAFF ROLE
+    jailed_role = 0 # // ROLE ID OF THE BANNED ROLE
+    log_prigione = 0 # // CHANNEL ID WHERE THE LOG OF THE JAILED USERS WILL BE
+    guild_id = 0 # // YOUR GUILD ID
