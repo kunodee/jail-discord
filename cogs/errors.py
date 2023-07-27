@@ -8,10 +8,7 @@ class ErrorsHandler(core.commands.Cog):
     @core.commands.Cog.listener()
     async def on_application_command_error(self, ctx: core.discord.ApplicationContext, error: core.discord.DiscordException):
 
-        if isinstance(error, core.discord.errors.CheckFailure):
-            return await ctx.respond(f"Non hai i permessi per eseguire questo comando.", ephemeral=True)
-        
-        elif isinstance(error, core.discord.errors.Forbidden):
+        if isinstance(error, core.discord.errors.Forbidden):
             return await ctx.respond(f"Non ho i permessi per eseguire questo comando.", ephemeral=False)
         
         print(f"[!] Error! -> {error}")
